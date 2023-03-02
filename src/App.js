@@ -1,9 +1,8 @@
-import './App.css';
+import "./style.scss";
+import Register from "./pages/Register";
 
 function App() {
-  return (
-   <div>Hello world!</div>
-  );
+  return <Register />;
 }
 
 export default App;
