@@ -1,6 +1,7 @@
-import React from "react";
-import Attach from "../img/attach.png";
-import Img from "../img/img.png";
+import Attach from "../../img/attach.png";
+import Img from "../../img/img.png";
+
+import "./Input.scss";
 
 const Input = () => {
   return (

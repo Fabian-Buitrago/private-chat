@@ -2,7 +2,7 @@ import Cam from "../../img/cam.png";
 import Add from "../../img/add.png";
 import More from "../../img/more.png";
 import Messages from "../message/Messages";
-import Input from "../Input";
+import Input from "../input/Input";
 
 import "./Chat.scss";
 
