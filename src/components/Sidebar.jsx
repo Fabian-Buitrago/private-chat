@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "./navbar/Navbar";
 import Search from "./Search";
 import Chats from "./chat/Chats";
 
