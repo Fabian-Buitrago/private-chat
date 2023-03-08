@@ -109,26 +109,6 @@
       background-color: #3e3c61;
       position: relative;
 
-      .search {
-        border-bottom: 1px solid gray;
-
-        .searchForm {
-          padding: 10px;
-
-          input {
-            width: 100%;
-            background-color: transparent;
-            border: none;
-            color: white;
-            outline: none;
-
-            &::placeholder {
-              color: lightgray;
-            }
-          }
-        }
-      }
-
       .userChat {
         padding: 10px;
         display: flex;

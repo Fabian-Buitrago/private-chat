@@ -1,16 +1,16 @@
-import Message from "./Message";
+import Message from './Message'
 
-import "./Messages.scss";
+import './Messages.scss'
 
 const Messages = () => {
   return (
-    <div className="messages">
+    <div className='messages'>
       <Message />
       <Message />
       <Message />
       <Message />
     </div>
-  );
-};
+  )
+}
 
-export default Messages;
+export default Messages
