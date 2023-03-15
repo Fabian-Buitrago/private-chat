@@ -4,9 +4,13 @@ import { auth, storage, db } from '../firebase'
 import { useState } from 'react'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { doc, setDoc } from 'firebase/firestore'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
+  const [previewUrl, setPreviewUrl] = useState('')
   const [err, setErr] = useState(false)
+  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     const displayName = e.target[0].value
@@ -47,8 +51,8 @@ const Register = () => {
               photoURL
             })
 
-            await setDoc(doc(db, 'userChats', res.user.uid), {
-            })
+            await setDoc(doc(db, 'userChats', res.user.uid), {})
+            navigate('/')
           })
         }
       )
@@ -67,15 +71,27 @@ const Register = () => {
           <input type='text' placeholder='display name' />
           <input type='email' placeholder='email' />
           <input type='password' placeholder='password' />
-          <input type='file' id='file' style={{ display: 'none' }} />
+          <input
+            type='file' id='file' style={{ display: 'none' }} onChange={(e) => {
+              const file = e.target.files?.[0]
+
+              if (file) {
+                setPreviewUrl(URL.createObjectURL(file))
+              }
+            }}
+          />
           <label htmlFor='file'>
-            <img src={Add} alt='' />
+            {previewUrl
+              ? (
+                <img src={previewUrl} />
+                )
+              : <img src={Add} />}
             <span>Add an avatar</span>
           </label>
           <button>Sign up</button>
           {err && <span>Something went wrong</span>}
         </form>
-        <p>Do you have an account? Login</p>
+        <p>Do you have an account? <Link to='/login'>Login</Link></p>
       </div>
     </div>
   )
