@@ -1,4 +1,10 @@
-import { arrayUnion, doc, Timestamp, updateDoc } from 'firebase/firestore'
+import {
+  arrayUnion,
+  doc,
+  serverTimestamp,
+  Timestamp,
+  updateDoc
+} from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
@@ -22,9 +28,11 @@ const Input = () => {
       const storageRef = ref(storage, uuid())
       const uploadTask = uploadBytesResumable(storageRef, img)
 
-      uploadTask.on('state_changed',
+      uploadTask.on(
+        'state_changed',
         (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           console.log('Upload is ' + progress + '% done')
         },
         (error) => {
@@ -54,16 +62,40 @@ const Input = () => {
         })
       })
     }
+
+    await updateDoc(doc(db, 'userChats', currentUser.uid), {
+      [data.chatId + '.lastMessage']: {
+        text
+      },
+      [data.chatId + '.date']: serverTimestamp()
+    })
+
+    await updateDoc(doc(db, 'userChats', data.user.uid), {
+      [data.chatId + '.lastMessage']: {
+        text
+      },
+      [data.chatId + '.date']: serverTimestamp()
+    })
+
     setText('')
     setImg(null)
   }
 
   return (
     <div className='input'>
-      <input type='text' placeholder='Type something...' onChange={e => setText(e.target.value)} />
+      <input
+        type='text'
+        placeholder='Type something...'
+        onChange={(e) => setText(e.target.value)}
+      />
       <div className='send'>
         <img src={Attach} alt='' />
-        <input type='file' style={{ display: 'none' }} id='file' onChange={e => setImg(e.target.files[0])} />
+        <input
+          type='file'
+          style={{ display: 'none' }}
+          id='file'
+          onChange={(e) => setImg(e.target.files[0])}
+        />
         <label htmlFor='file'>
           <img src={Img} alt='' />
         </label>
