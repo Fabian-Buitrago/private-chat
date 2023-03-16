@@ -1,11 +1,17 @@
+import { useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
+import { ChatContext } from '../../context/ChatContext'
 import './Message.scss'
 
-const Message = () => {
+const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext)
+  const { data } = useContext(ChatContext)
+
   return (
     <div className='message owner'>
-      <div className='messageInfo'>
+      {/* <div className='messageInfo'>
         <img
-          src='https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+          src={message.photoURL}
           alt=''
         />
         <span>Just now</span>
@@ -16,7 +22,7 @@ const Message = () => {
           src='https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
           alt=''
         />
-      </div>
+      </div> */}
     </div>
   )
 }
