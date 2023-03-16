@@ -5,12 +5,16 @@ import Messages from '../message/Messages'
 import Input from '../input/Input'
 
 import './Chat.scss'
+import { useContext } from 'react'
+import { ChatContext } from '../../context/ChatContext'
 
 const Chat = () => {
+  const { data } = useContext(ChatContext)
+
   return (
     <div className='chat'>
       <div className='chatInfo'>
-        <span>Jane</span>
+        <span>{data.user?.displayName}</span>
         <div className='chatIcons'>
           <img src={Cam} alt='' />
           <img src={Add} alt='' />
