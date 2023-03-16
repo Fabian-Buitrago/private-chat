@@ -3,6 +3,7 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   query,
   serverTimestamp,
   setDoc,
@@ -27,11 +28,12 @@ const Search = () => {
       where('displayName', '==', username)
     )
     try {
-      const querySnapshot = await getDoc(q)
+      const querySnapshot = await getDocs(q)
       querySnapshot.forEach((doc) => {
         setUser(doc.data())
       })
     } catch (error) {
+      console.log({ error })
       setErr(true)
     }
   }
@@ -54,11 +56,20 @@ const Search = () => {
         await setDoc(doc(db, 'chats', combinedId), { messages: [] })
 
         // create user chats
+        await updateDoc(doc(db, 'userChats', currentUser.uid), {
+          [combinedId + '.userInfo']: {
+            uid: user.uid,
+            displayName: user.displayName,
+            photoURL: user.photoURL
+          },
+          [combinedId + '.date']: serverTimestamp()
+        })
+
         await updateDoc(doc(db, 'userChats', user.uid), {
           [combinedId + '.userInfo']: {
             uid: currentUser.uid,
             displayName: currentUser.displayName,
-            photo: currentUser.photoURL
+            photoURL: currentUser.photoURL
           },
           [combinedId + '.date']: serverTimestamp()
         })
