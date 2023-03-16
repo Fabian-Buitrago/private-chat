@@ -16,11 +16,12 @@ const Register = () => {
     const displayName = e.target[0].value
     const email = e.target[1].value
     const password = e.target[2].value
-    const file = e.target[3].value
+    const file = e.target[3].files[0]
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password)
-      const storageRef = ref(storage, displayName)
+      const fileName = `${res?.user?.uid}-${displayName}`
+      const storageRef = ref(storage, fileName)
 
       const uploadTask = uploadBytesResumable(storageRef, file)
 
