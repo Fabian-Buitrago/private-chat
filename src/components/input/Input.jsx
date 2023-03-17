@@ -55,7 +55,7 @@ const Input = () => {
     } else {
       await updateDoc(doc(db, 'chats', data.chatId), {
         messages: arrayUnion({
-          id: uuid,
+          id: uuid(),
           text,
           senderId: currentUser.uid,
           date: Timestamp.now()
@@ -87,6 +87,7 @@ const Input = () => {
         type='text'
         placeholder='Type something...'
         onChange={(e) => setText(e.target.value)}
+        value={text}
       />
       <div className='send'>
         <img src={Attach} alt='' />

@@ -14,6 +14,7 @@ import { db } from '../../firebase'
 import { AuthContext } from '../../context/AuthContext'
 
 import './Search.scss'
+// import { ChatContext } from '../../context/ChatContext'
 
 const Search = () => {
   const [username, setUsername] = useState('')
@@ -21,6 +22,7 @@ const Search = () => {
   const [err, setErr] = useState(false)
 
   const { currentUser } = useContext(AuthContext)
+  // const { dispatch } = useContext(ChatContext)
 
   const handleSearch = async (e) => {
     const q = query(
@@ -43,6 +45,8 @@ const Search = () => {
   }
 
   const handleSelect = async (e) => {
+    // dispatch({ type: 'CHANGE_USER', user })
+
     // check whether the group(chats in firestore) exists, if not create
     const combinedId =
       currentUser.uid > user.uid
